@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #ffb6c1, #ffd1dc);
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            margin: 20px;
+        }
+
+        .message {
+            font-size: 2.5em;
+            color: #e74c3c;
+            margin: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .name {
+            font-size: 2em;
+            color: #111010;
+            margin: 15px;
+        }
+
+        .flower-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px;
+        }
+
+        .rose {
+            font-size: 4em;
+            cursor: pointer;
+            transition: transform 0.3s;
+            animation: float 2s infinite ease-in-out;
+        }
+
+        .rose:hover {
+            transform: scale(1.2);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.5em;
+            margin: 10px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+            font-weight: bold;
+        }
+
+        .yes-btn {
+            background-color: #2ecc71;
+            color: white;
+        }
+
+        .no-btn {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+        }
+
+        .hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="message">¿Quieres ser mi San Valentín?</div>
+        <div class="name">Mi amor Daniela Santos Reyes</div>
+        
+        <div class="flower-container">
+            <div class="rose" onclick="this.style.transform = 'rotate(360deg)'">🌹</div>
+            <div class="rose" onclick="this.style.transform = 'rotate(360deg)'">💐</div>
+            <div class="rose" onclick="this.style.transform = 'rotate(360deg)'">🌹</div>
+        </div>
+
+        <div class="buttons">
+            <button class="yes-btn" onclick="acceptValentine()">¡Sí!</button>
+            <button class="no-btn" onclick="moveButton(this)">No</button>
+        </div>
+    </div>
+
+    <div class="hearts"></div>
+
+    <script>
+        function moveButton(btn) {
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+            btn.style.position = 'absolute';
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+        }
+
+        function acceptValentine() {
+            // Cambiar el mensaje
+            document.querySelector('.message').innerHTML = '¡Gracias por ser mi San Valentín! ❤️';
+            
+            // Ocultar elementos
+            document.querySelector('.name').style.display = 'none';
+            document.querySelector('.no-btn').style.display = 'none';
+            document.querySelector('.yes-btn').style.display = 'none';
+            
+            // Crear y mostrar el nuevo botón "Ver"
+            const verButton = document.createElement('button');
+            verButton.innerText = ' Da click aqui porfa... ❤️';
+            verButton.className = 'ver-btn';
+            verButton.onclick = function() {
+                // Aquí puedes cambiar 'URL_DE_TU_PAGINA' por la URL a la que quieres redirigir
+                window.location.href = 'TeAmo.html';
+            };
+            
+            // Agregar el botón al contenedor de botones
+            document.querySelector('.buttons').appendChild(verButton);
+            
+            // Crear los corazones animados
+            createHearts();
+        }
+
+        function createHearts() {
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.style.position = 'fixed';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.top = '100vh';
+                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                heart.style.animation = 'float-up 4s linear';
+                document.querySelector('.hearts').appendChild(heart);
+
+                setTimeout(() => heart.remove(), 4000);
+            }, 300);
+        }
+    </script>
+</body>
+</html>
